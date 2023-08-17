@@ -5,7 +5,6 @@ using System.Text;
 
 var path = "../plugin/bin/Debug/net7.0/Int64Repro.wasm";
 
-Console.WriteLine(path);
 var bytes = File.ReadAllBytes(path);
 var context = new Context();
 
