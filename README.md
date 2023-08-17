@@ -76,3 +76,6 @@ Interesting files:
 
  - Host:
    - Program.c
+
+ - Go Host:
+   - main.go
