@@ -1,9 +1,23 @@
 ## .NET Function Import Repro
 
+When trying to import C functions, it seems like there is a certain threshold that causes problems when it's hit. The size depends both on parameter types and return type. For example, this works:
+
+```
+IMPORT("env", "do_something") extern int64_t do_something(int32_t);
+```
+
+Output:
+```
+Mo in D:\dylibso\Int64Repro\host on main ● ~4 λ dotnet run
+Input: 5
+```
+
+But this doesn't work (notice the parameter is also 64 bit now):
 ```
 IMPORT("env", "do_something") extern int64_t do_something(int64_t);
 ```
 
+Output:
 ```
 Mo in D:\dylibso\Int64Repro\host on main ● ~3 λ dotnet run
 ../plugin/bin/Debug/net7.0/Int64Repro.wasm
@@ -37,10 +51,12 @@ Caused by:
    at Program.<Main>$(String[] args) in D:\dylibso\Int64Repro\host\Program.cs:line 35
 ```
 
+This doesn't work, but it's even more starnge:
 ```
 IMPORT("env", "do_something") extern int32_t do_something(int32_t, int32_t, int32_t, int32_t, int32_t);
 ```
 
+Output:
 ```
 Mo in D:\dylibso\Int64Repro\host on main ● ~3 λ dotnet run
 ../plugin/bin/Debug/net7.0/Int64Repro.wasm
@@ -52,3 +68,11 @@ Repeat 2 times:
    at Extism.Sdk.HostFunction..ctor(System.String, System.String, System.Span`1<Extism.Sdk.Native.ExtismValType>, System.Span`1<Extism.Sdk.Native.ExtismValType>, IntPtr, Extism.Sdk.ExtismFunction)
    at Program.<Main>$(System.String[])
 ```
+
+Interesting files:
+ - Plugin:
+   - native.c
+   - Program.c
+
+ - Host:
+   - Program.c
