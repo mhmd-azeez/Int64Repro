@@ -25,6 +25,9 @@ IMPORT("env", "do_something") extern int64_t do_something(int64_t);
 // This works
 // IMPORT("env", "do_something") extern int32_t do_something(int32_t, int32_t);
 
+// This doesn't work
+// IMPORT("env", "do_something") extern int32_t do_something(int32_t, int32_t, int32_t, int32_t, int32_t);
+
 
 void repro_attach_internal_calls()
 {
