@@ -10,11 +10,11 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-#define IMPORT(a, b) __attribute__((import_module(a), import_name(b)))
-
-// This doesn't work
-IMPORT("env", "do_something") extern int64_t do_something(int64_t);
+//
+//#define IMPORT(a, b) __attribute__((import_module(a), import_name(b)))
+//
+//// This doesn't work
+//IMPORT("env", "do_something") extern int64_t do_something(int64_t);
 
 // This works
 // IMPORT("env", "do_something") extern int64_t do_something(int32_t);
@@ -28,6 +28,10 @@ IMPORT("env", "do_something") extern int64_t do_something(int64_t);
 // This doesn't work
 // IMPORT("env", "do_something") extern int32_t do_something(int32_t, int32_t, int32_t, int32_t, int32_t);
 
+// this doens't work
+int64_t do_something(int64_t v) {
+    return v * 2;
+}
 
 void repro_attach_internal_calls()
 {
