@@ -14,7 +14,7 @@ func main() {
 	manifest := extism.Manifest{
 		Wasm: []extism.Wasm{
 			extism.WasmFile{
-				Path: "../plugin/bin/Debug/net7.0/Int64Repro.wasm",
+				Path: "../plugin/bin/Debug/net8.0/wasi-wasm/AppBundle/Int64Repro.wasm",
 			},
 		},
 	}
@@ -26,11 +26,11 @@ func main() {
 
 	hf := extism.HostFunction{
 		Name:      "do_something",
-		Namespace: "env",
+		Namespace: "native",
 		Callback: func(ctx context.Context, p *extism.CurrentPlugin, userData interface{}, stack []uint64) {
 			fmt.Printf("Hello from Go: %v\n", api.DecodeI32(stack[0]))
 		},
-		Params:   []byte{api.ValueTypeI32},
+		Params:   []byte{api.ValueTypeI64},
 		Results:  []byte{api.ValueTypeI64},
 		UserData: "user data",
 	}

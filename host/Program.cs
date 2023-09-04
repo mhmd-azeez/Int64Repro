@@ -9,7 +9,7 @@ var bytes = File.ReadAllBytes(path);
 var context = new Context();
 
 // This doesn't work: wasm exception
-var hf = new HostFunction("do_something", "env",  new ExtismValType[] { ExtismValType.I64 }, new ExtismValType[] { ExtismValType.I64 }, 0, DoSomething);
+var hf = new HostFunction("do_something", "native",  new ExtismValType[] { ExtismValType.I64 }, new ExtismValType[] { ExtismValType.I64 }, 0, DoSomething);
 
 // This works
 // var hf = new HostFunction("do_something", "env",  new ExtismValType[] { ExtismValType.I32 }, new ExtismValType[] { ExtismValType.I64 }, 0, DoSomething);
@@ -29,6 +29,6 @@ void DoSomething(CurrentPlugin plugin, Span<ExtismVal> inputs, Span<ExtismVal> o
   // outputs[0].v.i64 = 1;
 }
 
-var plugin = context.CreatePlugin(bytes, new[] { hf }, withWasi: true);
+Plugin plugin = context.CreatePlugin(bytes, new[] { hf }, withWasi: true);
 
 _ = plugin.CallFunction("_start", Encoding.UTF8.GetBytes("Hello World!"));

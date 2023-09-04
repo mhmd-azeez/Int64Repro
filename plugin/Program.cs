@@ -1,9 +1,12 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 public class Program
 {
-    [MethodImpl(MethodImplOptions.InternalCall)]
+    // [MethodImpl(MethodImplOptions.InternalCall)]
     // This doesn't work
+    [DllImport("native")]
     public static unsafe extern long do_something(long n);
 
     // This doesn't work
