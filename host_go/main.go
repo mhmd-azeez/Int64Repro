@@ -6,6 +6,7 @@ import (
 	"os"
 
 	extism "github.com/extism/go-sdk"
+	"github.com/tetratelabs/wazero"
 	"github.com/tetratelabs/wazero/api"
 )
 
@@ -21,7 +22,8 @@ func main() {
 
 	ctx := context.Background()
 	config := extism.PluginConfig{
-		EnableWasi: true,
+		EnableWasi:   true,
+		ModuleConfig: wazero.NewModuleConfig().WithArgs("app.wasm").WithStdout(os.Stdout),
 	}
 
 	hf := extism.HostFunction{
@@ -29,6 +31,7 @@ func main() {
 		Namespace: "native",
 		Callback: func(ctx context.Context, p *extism.CurrentPlugin, userData interface{}, stack []uint64) {
 			fmt.Printf("Hello from Go: %v\n", api.DecodeI32(stack[0]))
+			stack[0] = stack[0] * 2
 		},
 		Params:   []byte{api.ValueTypeI64},
 		Results:  []byte{api.ValueTypeI64},

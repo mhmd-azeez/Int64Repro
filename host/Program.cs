@@ -3,7 +3,7 @@ using Extism.Sdk.Native;
 
 using System.Text;
 
-var path = "../plugin/bin/Debug/net7.0/Int64Repro.wasm";
+var path = "../plugin/bin/Debug/net8.0/wasi-wasm/AppBundle/Int64Repro.wasm";
 
 var bytes = File.ReadAllBytes(path);
 var context = new Context();
