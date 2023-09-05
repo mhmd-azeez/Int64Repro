@@ -45,7 +45,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	exit, _, err := plugin.Call("_start", []byte{})
+	exit, _, err := plugin.Call("hi", []byte{})
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(int(exit))

@@ -1,3 +1,6 @@
 {
-    "dotnet.defaultSolution": "Int64Repro.sln"
+    "dotnet.defaultSolution": "Int64Repro.sln",
+    "files.associations": {
+        "driver.h": "c"
+    }
 }
