@@ -18,7 +18,11 @@
 #define IMPORT(a, b) __attribute__((import_module(a), import_name(b)))
 
 IMPORT("native", "do_something")
-extern int64_t do_something(int64_t v);
+extern int64_t do_something_wrapper(int64_t v);
+
+int64_t do_something(int64_t v) {
+    return do_something_wrapper(v);
+}
 
 extern void mono_wasm_invoke_method_ref (MonoMethod *method, MonoObject **this_arg_in, void *params[], MonoObject **_out_exc, MonoObject **out_result);
 
